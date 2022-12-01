@@ -45,9 +45,8 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 18),
-                    child: Image.asset("assets/search_icon.png")
-                  )
+                      padding: const EdgeInsets.only(right: 18),
+                      child: Image.asset("assets/search_icon.png"))
                 ],
               ), //appbar-finish
               Padding(
@@ -107,7 +106,9 @@ class _HomePageState extends State<HomePage> {
                   child: const Text(
                     "TV Show",
                     style: TextStyle(
-                        color: Color(0xffFFFFFF), fontWeight: FontWeight.w500,fontSize: 18),
+                        color: Color(0xffFFFFFF),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18),
                   ),
                 ),
               ),
