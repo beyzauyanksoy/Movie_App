@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'page/detail_page.dart';
 import 'page/home_page.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const DetailPage(),
     );
   }
 }
