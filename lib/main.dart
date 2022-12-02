@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'page/detail_page.dart';
 import 'page/home_page.dart';
+import 'provider/movie_provider.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -20,7 +23,10 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const DetailPage(),
+      home: MultiProvider(providers: [
+         ChangeNotifierProvider<MovieProvider>(create: (context) => MovieProvider()),
+      ],
+      child: const HomePage()),
     );
   }
 }

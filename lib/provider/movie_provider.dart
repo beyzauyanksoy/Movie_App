@@ -1,0 +1,42 @@
+import 'package:flutter/cupertino.dart';
+
+import '../model/now_playing_model.dart';
+import '../model/popular_movie_id_model.dart';
+import '../model/popular_movie_model.dart';
+import '../model/rated_top_model.dart';
+import '../model/upcoming_model.dart';
+import '../services/movie_services.dart';
+
+class MovieProvider extends ChangeNotifier {
+  PopularMovieModel? popular = PopularMovieModel();
+  TopRatedModel? toptated=TopRatedModel();
+  NowPlayinModel? nowplaying=NowPlayinModel();
+  UpcomingMovieModel? upcoming=UpcomingMovieModel();
+  PopularMovieIdModel? popularid=PopularMovieIdModel();
+
+  getPopular() async {
+    popular = await Services().getPopularMovie();
+    notifyListeners();
+  }
+
+    getRatedTop() async {
+    toptated = await Services().getTopRated();
+    notifyListeners();
+  }
+
+    getNowPlaying() async {
+    nowplaying = await Services().getNowPlaying();
+    notifyListeners();
+  }
+
+  getUpcoming() async {
+    upcoming = await Services().getUpcoming();
+    notifyListeners();
+  }
+
+  getPopularid(String? id) async {
+    popularid = await Services().getPopularId(id);
+    notifyListeners();
+  }
+
+}
