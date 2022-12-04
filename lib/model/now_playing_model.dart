@@ -1,9 +1,11 @@
+// ignore_for_file: prefer_collection_literals, unnecessary_new, unnecessary_this
+
 class NowPlayinModel {
   Dates? dates;
-  dynamic? page;
+  dynamic page;
   List<Results>? results;
-  dynamic? totalPages;
-  dynamic? totalResults;
+  dynamic totalPages;
+  dynamic totalResults;
 
   NowPlayinModel(
       {this.dates,
@@ -63,17 +65,17 @@ class Results {
   bool? adult;
   String? backdropPath;
   List<dynamic>? genreIds;
-  dynamic? id;
+  dynamic id;
   String? originalLanguage;
   String? originalTitle;
   String? overview;
-  dynamic? popularity;
+  dynamic popularity;
   String? posterPath;
   String? releaseDate;
   String? title;
   bool? video;
-  dynamic? voteAverage;
-  dynamic? voteCount;
+  dynamic voteAverage;
+  dynamic voteCount;
 
   Results(
       {this.adult,

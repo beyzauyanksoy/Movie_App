@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:movie_app/page/search_page.dart';
 import 'package:provider/provider.dart';
 
 import '../model/popular_movie_model.dart';
@@ -68,7 +69,15 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                           padding: const EdgeInsets.only(right: 18),
-                          child: Image.asset("assets/search_icon.png"))
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const SearchPage()),
+                                );
+                              },
+                              child: Image.asset("assets/search_icon.png")))
                     ],
                   ), //appbar-finish
                   Padding(
@@ -95,10 +104,13 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
+                            Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) =>  DetailPage(id: provider.popular?.results?[index].id.toString())),
+                                builder: (context) => DetailPage(
+                                  id: provider.popular?.results?[index].id
+                                      .toString(),
+                                ),
+                              ),
                             );
                           },
                           child: Container(
@@ -112,20 +124,21 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(15),
                                   child: Container(
                                     height: 200,
-                                    child: Image.network(
+                                    child:provider.popular?.results?[index].posterPath != null? Image.network(
                                         'https://image.tmdb.org/t/p/w200/${provider.popular?.results?[index].posterPath}',
-                                        fit: BoxFit.cover),
+                                        fit: BoxFit.cover):const SizedBox(),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top: 6, bottom: 3),
+                                  padding:
+                                      const EdgeInsets.only(top: 6, bottom: 3),
                                   child: SizedBox(
                                     width: 136,
                                     child: Text(
                                       "${provider.popular?.results?[index].title ?? ""}",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Color(0xffFFFFFF),
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500),
@@ -168,23 +181,33 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            // color: Colors.green,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(
+                                    id: provider.nowplaying?.results?[index].id
+                                        .toString(),
+                                  ),
+                                ),
+                              );
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
+                                SizedBox(
                                   height: 200,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(
+                                    child:provider.nowplaying?.results?[index].posterPath != null? Image.network(
                                         'https://image.tmdb.org/t/p/w200/${provider.nowplaying?.results?[index].posterPath}',
-                                        fit: BoxFit.cover),
+                                        fit: BoxFit.cover):const SizedBox(),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top: 6, bottom: 3),
+                                  padding:
+                                      const EdgeInsets.only(top: 6, bottom: 3),
                                   child: Container(
                                     width: 120,
                                     // color: Colors.red,
@@ -192,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                                       "${provider.nowplaying?.results?[index].title ?? ""}",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Color(0xffFFFFFF),
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500),
@@ -201,15 +224,15 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text(
                                   "start: ${provider.nowplaying?.dates?.minimum}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white38, fontSize: 12),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 3,
                                 ),
                                 Text(
                                   "finish: ${provider.nowplaying?.dates?.maximum}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white38, fontSize: 12),
                                 ),
                               ],
@@ -221,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 16),
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: const Text(
                         "Upcoming Moview",
@@ -233,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     //color: Colors.blue,
                     width: MediaQuery.of(context).size.width,
                     height: 250,
@@ -244,53 +267,70 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(right: 10),
-                          child: Container(
-                            width: 105,
-                            //color: Colors.red,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(
-                                        "https://image.tmdb.org/t/p/w200/${provider.upcoming?.results?[index].posterPath}")),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 6, bottom: 3),
-                                  child: Container(
-                                    width: 120,
-                                    child: Text(
-                                      "${provider.upcoming?.results?[index].title}",
-                                      style: TextStyle(
-                                          color: Color(0xffFFFFFF),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(
+                                    id: provider.upcoming?.results?[index].id
+                                        .toString(),
                                   ),
                                 ),
-                                Text(
-                                  provider.upcoming?.dates?.minimum
-                                          ?.toString()
-                                          .split(" ")
-                                          .first
-                                          .substring(0, 10) ??
-                                      "",
-                                  style: TextStyle(
-                                      color: Colors.white38, fontSize: 12),
-                                ),
-                                Text(
-                                  provider.upcoming?.dates?.maximum
-                                          ?.toString()
-                                          .split(" ")
-                                          .first
-                                          .substring(0, 10) ??
-                                      "",
-                                  style: TextStyle(
-                                      color: Colors.white38, fontSize: 12),
-                                ),
-                              ],
+                              );
+                            },
+                            child: SizedBox(
+                              width: 105,
+                              //color: Colors.red,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: provider.upcoming?.results?[index]
+                                                .posterPath !=
+                                            null
+                                        ? Image.network(
+                                            "https://image.tmdb.org/t/p/w200/${provider.upcoming?.results?[index].posterPath}")
+                                        : const SizedBox(),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 6, bottom: 3),
+                                    child: Container(
+                                      width: 120,
+                                      child: Text(
+                                        "${provider.upcoming?.results?[index].title}",
+                                        style: const TextStyle(
+                                            color: Color(0xffFFFFFF),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    provider.upcoming?.dates?.minimum
+                                            ?.toString()
+                                            .split(" ")
+                                            .first
+                                            .substring(0, 10) ??
+                                        "",
+                                    style: const TextStyle(
+                                        color: Colors.white38, fontSize: 12),
+                                  ),
+                                  Text(
+                                    provider.upcoming?.dates?.maximum
+                                            ?.toString()
+                                            .split(" ")
+                                            .first
+                                            .substring(0, 10) ??
+                                        "",
+                                    style: TextStyle(
+                                        color: Colors.white38, fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

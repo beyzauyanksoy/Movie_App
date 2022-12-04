@@ -6,11 +6,19 @@ import 'page/home_page.dart';
 import 'provider/movie_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => MovieProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -20,16 +28,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        
         primarySwatch: Colors.blue,
       ),
-      home: MultiProvider(providers: [
-         ChangeNotifierProvider<MovieProvider>(create: (context) => MovieProvider()),
-      ],
-      child: const HomePage()),
+      home: const HomePage(),
     );
   }
 }
-
-
-
