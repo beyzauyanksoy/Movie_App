@@ -66,8 +66,9 @@ class _DetailPageState extends State<DetailPage> {
                       ? SizedBox(
                           //height: 350,
                           width: double.infinity,
+                          //https://image.tmdb.org/t/p/w600_and_h900_bestv2/
                           child: Image.network(
-                            'https://image.tmdb.org/t/p/w200${provider.popularid?.posterPath}',
+                            'https://image.tmdb.org/t/p/w600_and_h900_bestv2${provider.popularid?.posterPath}',
                             fit: BoxFit.contain,
                           ),
                         )
@@ -154,7 +155,8 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: Text(
                   provider.popularid?.overview ?? "",
                   style: const TextStyle(color: Colors.white38),

@@ -90,6 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(0),
+                                    ////https://image.tmdb.org/t/p/w600_and_h900_bestv2/
                                     child: Image.network(
                                       "https://image.tmdb.org/t/p/w200${provider.search?.results?[index].backdropPath ?? ""}",
                                     ),
@@ -112,7 +113,7 @@ class _SearchPageState extends State<SearchPage> {
                                           ),
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 8,
                                         ),
                                         Container(
